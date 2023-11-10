@@ -1,0 +1,25 @@
+<header>
+  <mat-toolbar color="secondary">
+    <mat-toolbar-row id="login-bar">
+      <span>sign up!</span>
+      <span class="example-spacer"></span>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        routerLink="/sign-up"
+      >
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example user verified icon"
+        >login</mat-icon
+        >
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>
+
+<main class="main-body">
+  <router-outlet></router-outlet>
+</main>
