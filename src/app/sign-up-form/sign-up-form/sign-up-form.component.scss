@@ -1,0 +1,23 @@
+.sign-up-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__field {
+    width: 400px;
+  }
+
+  &__field-error-message {
+    display: none;
+  }
+
+  &__field-error-message:first-child {
+    display: inline;
+  }
+}
