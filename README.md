@@ -29,6 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## TODO
 - [x] add form
 - [x] unit tests
-- [ ] e2e tests with new schematics
+- [x] e2e tests with new schematics
 - [ ] try ng17 control flow syntax
 - [ ] convert observerables to Signals??
