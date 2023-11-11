@@ -12,11 +12,13 @@
     >
       <mat-label> First name </mat-label>
       <input matInput [formControl]="firstName" />
-      <mat-error *ngIf="firstName.touched && firstName.invalid">
-        <span *ngIf="firstName.errors?.['required']"
-        >This field is mandatory.</span
-        >
-      </mat-error>
+      @if (firstName.touched && firstName.invalid) {
+        <mat-error>
+          @if (firstName.errors?.['required']) {
+            <span>This field is mandatory.</span>
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field
@@ -26,22 +28,28 @@
     >
       <mat-label> Last name </mat-label>
       <input matInput [formControl]="lastName" />
-      <mat-error *ngIf="lastName.touched && lastName.invalid">
-        <span *ngIf="lastName.errors?.['required']"
-        >This field is mandatory.</span
-        >
-      </mat-error>
+      @if (lastName.touched && lastName.invalid) {
+        <mat-error>
+          @if (lastName.errors?.['required']) {
+            <span>This field is mandatory.</span>
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field id="email" class="sign-up-form__field" appearance="outline">
       <mat-label> E-mail </mat-label>
       <input matInput [formControl]="email" required />
-      <mat-error *ngIf="email.touched && email.invalid">
-        <span *ngIf="email.errors?.['required']">This field is mandatory.</span>
-        <span *ngIf="email.errors?.['emailValidation']"
-        >Email is incorrect.</span
-        >
-      </mat-error>
+      @if (email.touched && email.invalid) {
+        <mat-error>
+          @if (email.errors?.['required']) {
+            <span>This field is mandatory.</span>
+          }
+          @if (email.errors?.['emailValidation']) {
+            <span>Email is incorrect.</span>
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field
@@ -51,28 +59,30 @@
     >
       <mat-label> Password </mat-label>
       <input matInput [formControl]="password" type="text" />
-      <mat-error *ngIf="password.touched && password.invalid">
-        <span
-          *ngIf="password.errors?.['required']"
-          class="sign-up-form__field-error-message"
-        >This field is mandatory.</span
-        >
-        <span
-          *ngIf="password.errors?.['minlength']"
-          class="sign-up-form__field-error-message"
-        >Minimum of 8 characters.</span
-        >
-        <span
-          *ngIf="password.errors?.['pattern']"
-          class="sign-up-form__field-error-message"
-        >Password requires upper and lower case characters.</span
-        >
-        <span
-          *ngIf="password.errors?.['passwordChecks']"
-          class="sign-up-form__field-error-message"
-        >Password contains parts of your name.</span
-        >
-      </mat-error>
+      @if (password.touched && password.invalid) {
+        <mat-error>
+          @if (password.errors?.['required']) {
+            <span class="sign-up-form__field-error-message">
+              This field is mandatory.
+            </span>
+          }
+          @if (password.errors?.['minlength']) {
+            <span class="sign-up-form__field-error-message">
+              Minimum of 8 characters.
+            </span>
+          }
+          @if (password.errors?.['pattern']) {
+            <span class="sign-up-form__field-error-message">
+              Password requires upper and lower case characters.
+            </span>
+          }
+          @if (password.errors?.['passwordChecks']) {
+            <span class="sign-up-form__field-error-message">
+              Password contains parts of your name.
+            </span>
+          }
+        </mat-error>
+      }
     </mat-form-field>
     <button
       mat-raised-button
@@ -81,9 +91,11 @@
       [disabled]="!signUpForm.valid"
     >
       Sign up
-      <mat-icon *ngIf="isLoadingSignal()">
-        <mat-spinner color="accent" diameter="20"> </mat-spinner>
-      </mat-icon>
+      @if (isLoadingSignal()) {
+        <mat-icon>
+          <mat-spinner color="accent" diameter="20"> </mat-spinner>
+        </mat-icon>
+      }
     </button>
   </form>
 </div>

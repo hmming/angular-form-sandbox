@@ -1,3 +1,5 @@
 <div class="thank-you-component">
-  <h1 *ngIf="showThankYouMessage">Thanks for filling out our form!</h1>
+  @if (showThankYouMessage) {
+    <h1>Thanks for filling out our form!</h1>
+  }
 </div>
