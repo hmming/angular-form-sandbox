@@ -1,0 +1,22 @@
+.thank-you-component {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+::ng-deep .mat-mdc-snack-bar-container {
+  &.snackbar--failure {
+    --mdc-snackbar-container-color: red;
+  }
+
+  &.snackbar--success {
+    --mdc-snackbar-container-color: green;
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: white;
+    .mdc-button__label {
+      color: white;
+    }
+  }
+}
