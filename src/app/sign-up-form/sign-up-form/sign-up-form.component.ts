@@ -8,12 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpForm } from './interfaces/SignUpForm';
-import { Subject, Observable, combineLatest, takeUntil, finalize } from 'rxjs';
+import { Subject, Observable, combineLatest, takeUntil, finalize, interval, take, map } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormValidationService } from '../services/form-validation.service';
 import { SignUpService } from '../services/sign-up.service';
 import { LoadingStateService } from '../../services/loading-state.service';
 import { UserRegistration } from './interfaces/UserRegistration';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -38,6 +39,13 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
   private destroySubject$: Subject<void> = new Subject();
 
+  counter$ = interval(1000).pipe(take(10), map((val) => {
+      if(val == 7) {
+        throw new Error('bluhhhh!')
+      } return val;
+  }) );
+  counterSig = toSignal(this.counter$);
+
   constructor(
     private fb: FormBuilder,
     private validationService: FormValidationService,
@@ -47,6 +55,12 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    try {
+      this.counterSig();
+    } catch (e) {
+      console.log(e);
+    }
+
     this.createForm();
     this.subscribeToNameChanges();
 

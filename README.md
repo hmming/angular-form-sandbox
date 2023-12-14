@@ -30,5 +30,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [x] add form
 - [x] unit tests
 - [x] e2e tests with new schematics
-- [ ] try ng17 control flow syntax
-- [ ] convert observerables to Signals??
+- [x] try ng17 control flow syntax
+- [x] convert observerables to Signals??
