@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { thankYouGuard } from './guards/thank-you.guard';
+import { provideState } from '@ngrx/store';
+import { counterReducer } from './store/reducers/counter.reducer';
 
 export const routes: Routes = [
   {
@@ -16,10 +18,13 @@ export const routes: Routes = [
       import('./sign-up-form/sign-up-form/sign-up-form.component').then(
         (m) => m.SignUpFormComponent
       ),
+    providers: [
+      provideState({name: 'counter', reducer: counterReducer})
+    ]
   },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'sign-up',
     pathMatch: 'full',
   },
 ];

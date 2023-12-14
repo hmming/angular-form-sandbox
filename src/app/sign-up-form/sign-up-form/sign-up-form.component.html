@@ -1,4 +1,12 @@
 <div class="sign-up-form">
+
+  <button (click)="storeIncrement()">Increment</button>
+
+  <div>Current Count: {{ count$ | async }}</div>
+
+  <button (click)="storeDecrement()">Decrement</button>
+
+  <button (click)="storeReset()">Reset Counter</button>
   <form
     [formGroup]="signUpForm"
     class="sign-up-form__container"

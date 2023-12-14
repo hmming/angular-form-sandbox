@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, Signal, inject } from '@angular/core';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,8 @@ import { FormValidationService } from '../services/form-validation.service';
 import { SignUpService } from '../services/sign-up.service';
 import { LoadingStateService } from '../../services/loading-state.service';
 import { UserRegistration } from './interfaces/UserRegistration';
+import { Store } from '@ngrx/store';
+import { increment, decrement, reset } from '../../store/actions/counter.actions';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -38,19 +40,36 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
   private destroySubject$: Subject<void> = new Subject();
 
+  private store = inject(Store);
+  count$: Observable<number>;
+
   constructor(
     private fb: FormBuilder,
     private validationService: FormValidationService,
     private signUpService: SignUpService,
     private loadingStateService: LoadingStateService,
     private router: Router
-  ) {}
+  ) {
+    this.count$ = this.store.select('counter')
+  }
 
   ngOnInit(): void {
     this.createForm();
     this.subscribeToNameChanges();
 
     this.isLoadingSignal = this.loadingStateService.isLoadingSignal;
+  }
+
+  storeIncrement() {
+    this.store.dispatch(increment())
+  }
+
+  storeDecrement() {
+    this.store.dispatch(decrement())
+  }
+
+  storeReset() {
+    this.store.dispatch(reset())
   }
 
   private createForm(): void {
