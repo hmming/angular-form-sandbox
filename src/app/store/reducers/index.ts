@@ -8,13 +8,17 @@ import {
 } from '@ngrx/store';
 import { formDataReducer } from './formData.reducer';
 import { UserRegistration } from '../../sign-up-form/sign-up-form/interfaces/UserRegistration';
+import { UserData } from '../../sign-up-form/interfaces/interfaces';
+import { userDataReducer } from './userData.reducer';
 
 export interface State {
- formData: UserRegistration
+ formData: UserRegistration;
+ userData: UserData[];
 }
 
 export const reducers: ActionReducerMap<State> = {
   formData: formDataReducer,
+  userData: userDataReducer,
 };
 
 

@@ -17,6 +17,8 @@ import { UserRegistration } from './interfaces/UserRegistration';
 import { Store } from '@ngrx/store';
 import { saveUser } from '../../store/actions/formData.actions';
 import { MatSelectModule } from '@angular/material/select';
+import { fetchUsers } from '../../store/actions/users.actions';
+import { UserData } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -44,78 +46,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
   private destroySubject$: Subject<void> = new Subject();
 
   private store = inject(Store);
-
-  stubUserToHelp = [
-    {
-      "id": 1,
-      "name": "Leanne Graham",
-      "username": "Bret",
-      "email": "Sincere@april.biz",
-      "address": {
-        "street": "Kulas Light",
-        "suite": "Apt. 556",
-        "city": "Gwenborough",
-        "zipcode": "92998-3874",
-        "geo": {
-          "lat": "-37.3159",
-          "lng": "81.1496"
-        }
-      },
-      "phone": "1-770-736-8031 x56442",
-      "website": "hildegard.org",
-      "company": {
-        "name": "Romaguera-Crona",
-        "catchPhrase": "Multi-layered client-server neural-net",
-        "bs": "harness real-time e-markets"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Ervin Howell",
-      "username": "Antonette",
-      "email": "Shanna@melissa.tv",
-      "address": {
-        "street": "Victor Plains",
-        "suite": "Suite 879",
-        "city": "Wisokyburgh",
-        "zipcode": "90566-7771",
-        "geo": {
-          "lat": "-43.9509",
-          "lng": "-34.4618"
-        }
-      },
-      "phone": "010-692-6593 x09125",
-      "website": "anastasia.net",
-      "company": {
-        "name": "Deckow-Crist",
-        "catchPhrase": "Proactive didactic contingency",
-        "bs": "synergize scalable supply-chains"
-      }
-    },
-    {
-      "id": 3,
-      "name": "Clementine Bauch",
-      "username": "Samantha",
-      "email": "Nathan@yesenia.net",
-      "address": {
-        "street": "Douglas Extension",
-        "suite": "Suite 847",
-        "city": "McKenziehaven",
-        "zipcode": "59590-4157",
-        "geo": {
-          "lat": "-68.6102",
-          "lng": "-47.0653"
-        }
-      },
-      "phone": "1-463-123-4447",
-      "website": "ramiro.info",
-      "company": {
-        "name": "Romaguera-Jacobson",
-        "catchPhrase": "Face to face bifurcated interface",
-        "bs": "e-enable strategic applications"
-      }
-    }
-    ];
+  usersData$!: Observable<UserData[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -124,6 +55,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
     private loadingStateService: LoadingStateService,
     private router: Router
   ) {
+    this.store.dispatch(fetchUsers());
   }
 
   ngOnInit(): void {
@@ -131,6 +63,8 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
     this.subscribeToNameChanges();
 
     this.isLoadingSignal = this.loadingStateService.isLoadingSignal;
+
+    this.usersData$ = this.store.select('userData');
   }
 
   saveUser() {

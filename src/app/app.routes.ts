@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { thankYouGuard } from './guards/thank-you.guard';
 import { provideState } from '@ngrx/store';
 import { formDataReducer } from './store/reducers/formData.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { fetchUsers$ } from './store/effects/users.effects';
+import { userDataReducer } from './store/reducers/userData.reducer';
 
 export const routes: Routes = [
   {
@@ -19,7 +22,9 @@ export const routes: Routes = [
         (m) => m.SignUpFormComponent
       ),
     providers: [
-      provideState({name: 'user', reducer: formDataReducer})
+      provideState({name: 'formData', reducer: formDataReducer}),
+      provideState({name: 'userData', reducer: userDataReducer}),
+      provideEffects({ fetchUsers$ })
     ]
   },
   {
