@@ -1,5 +1,5 @@
 export enum FormDataActions {
-  saveUser = '[users-data] fetch users succes'
+  saveUser = '[sign-up-form] save user'
 }
 
 export enum UserDataAction {

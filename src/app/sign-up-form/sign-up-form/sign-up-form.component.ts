@@ -69,6 +69,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
   saveUser() {
     this.store.dispatch(saveUser(this.mapFormObject()))
+    this.router.navigate(['beneficiary-details'])
   }
 
   private mapFormObject(): UserRegistration {

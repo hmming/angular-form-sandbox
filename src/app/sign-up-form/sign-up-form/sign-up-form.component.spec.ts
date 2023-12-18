@@ -213,6 +213,7 @@ describe('SignUpFormComponent', () => {
         lastName: 'doe',
         email: 'a@a.com',
         password: 'helloWorld',
+        userToHelp: ''
       };
 
       expect(fakeSignUpService.submitData).toHaveBeenCalledWith(

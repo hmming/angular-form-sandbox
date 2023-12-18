@@ -16,6 +16,13 @@ export const routes: Routes = [
     canActivate: [thankYouGuard],
   },
   {
+    path: 'beneficiary-details',
+    loadComponent: () =>
+      import('./beneficiary-details/beneficiary-details.component').then(
+        (m) => m.BeneficiaryDetailsComponent
+      )
+  },
+  {
     path: 'sign-up',
     loadComponent: () =>
       import('./sign-up-form/sign-up-form/sign-up-form.component').then(
