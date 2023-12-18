@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { thankYouGuard } from './guards/thank-you.guard';
 import { provideState } from '@ngrx/store';
-import { counterReducer } from './store/reducers/counter.reducer';
+import { formDataReducer } from './store/reducers/formData.reducer';
 
 export const routes: Routes = [
   {
@@ -19,7 +19,7 @@ export const routes: Routes = [
         (m) => m.SignUpFormComponent
       ),
     providers: [
-      provideState({name: 'counter', reducer: counterReducer})
+      provideState({name: 'user', reducer: formDataReducer})
     ]
   },
   {

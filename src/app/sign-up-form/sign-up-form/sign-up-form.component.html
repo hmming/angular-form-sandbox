@@ -1,12 +1,4 @@
 <div class="sign-up-form">
-
-  <button (click)="storeIncrement()">Increment</button>
-
-  <div>Current Count: {{ count$ | async }}</div>
-
-  <button (click)="storeDecrement()">Decrement</button>
-
-  <button (click)="storeReset()">Reset Counter</button>
   <form
     [formGroup]="signUpForm"
     class="sign-up-form__container"
@@ -82,6 +74,14 @@
         >
       </mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Who do you want to help?</mat-label>
+      <mat-select [formControl]="userToHelp">
+        <mat-option>-- Clear --</mat-option>
+        <mat-option *ngFor="let userToHelp of stubUserToHelp" [value]="userToHelp.id">{{userToHelp.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="userToHelp.hasError('required')">You must make a selection</mat-error>
+    </mat-form-field>
     <button
       mat-raised-button
       color="primary"
@@ -92,6 +92,16 @@
       <mat-icon *ngIf="isLoadingSignal()">
         <mat-spinner color="accent" diameter="20"> </mat-spinner>
       </mat-icon>
+    </button>
+
+    <button
+      mat-raised-button
+      color="secondary"
+      type="button"
+      [disabled]="!signUpForm.valid"
+      (click)="saveUser()"
+    >
+      Next
     </button>
   </form>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Signal, inject } from '@angular/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, NgForOf } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +15,8 @@ import { SignUpService } from '../services/sign-up.service';
 import { LoadingStateService } from '../../services/loading-state.service';
 import { UserRegistration } from './interfaces/UserRegistration';
 import { Store } from '@ngrx/store';
-import { increment, decrement, reset } from '../../store/actions/counter.actions';
+import { saveUser } from '../../store/actions/formData.actions';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -25,9 +26,11 @@ import { increment, decrement, reset } from '../../store/actions/counter.actions
     MatFormFieldModule,
     MatInputModule,
     NgIf,
+    NgForOf,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     AsyncPipe,
     HttpClientModule,
   ],
@@ -41,7 +44,78 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
   private destroySubject$: Subject<void> = new Subject();
 
   private store = inject(Store);
-  count$: Observable<number>;
+
+  stubUserToHelp = [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+          "lat": "-37.3159",
+          "lng": "81.1496"
+        }
+      },
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "company": {
+        "name": "Romaguera-Crona",
+        "catchPhrase": "Multi-layered client-server neural-net",
+        "bs": "harness real-time e-markets"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Ervin Howell",
+      "username": "Antonette",
+      "email": "Shanna@melissa.tv",
+      "address": {
+        "street": "Victor Plains",
+        "suite": "Suite 879",
+        "city": "Wisokyburgh",
+        "zipcode": "90566-7771",
+        "geo": {
+          "lat": "-43.9509",
+          "lng": "-34.4618"
+        }
+      },
+      "phone": "010-692-6593 x09125",
+      "website": "anastasia.net",
+      "company": {
+        "name": "Deckow-Crist",
+        "catchPhrase": "Proactive didactic contingency",
+        "bs": "synergize scalable supply-chains"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Clementine Bauch",
+      "username": "Samantha",
+      "email": "Nathan@yesenia.net",
+      "address": {
+        "street": "Douglas Extension",
+        "suite": "Suite 847",
+        "city": "McKenziehaven",
+        "zipcode": "59590-4157",
+        "geo": {
+          "lat": "-68.6102",
+          "lng": "-47.0653"
+        }
+      },
+      "phone": "1-463-123-4447",
+      "website": "ramiro.info",
+      "company": {
+        "name": "Romaguera-Jacobson",
+        "catchPhrase": "Face to face bifurcated interface",
+        "bs": "e-enable strategic applications"
+      }
+    }
+    ];
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +124,6 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
     private loadingStateService: LoadingStateService,
     private router: Router
   ) {
-    this.count$ = this.store.select('counter')
   }
 
   ngOnInit(): void {
@@ -60,16 +133,18 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
     this.isLoadingSignal = this.loadingStateService.isLoadingSignal;
   }
 
-  storeIncrement() {
-    this.store.dispatch(increment())
+  saveUser() {
+    this.store.dispatch(saveUser(this.mapFormObject()))
   }
 
-  storeDecrement() {
-    this.store.dispatch(decrement())
-  }
-
-  storeReset() {
-    this.store.dispatch(reset())
+  private mapFormObject(): UserRegistration {
+    return {
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      email: this.email.value,
+      password: this.password.value,
+      userToHelp: this.userToHelp.value
+    }
   }
 
   private createForm(): void {
@@ -98,6 +173,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
           ),
         ],
       ],
+      userToHelp: ['', [ Validators.required,]]
     });
   }
 
@@ -125,6 +201,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
       lastName: this.lastName.value,
       email: this.email.value,
       password: this.password.value,
+      userToHelp: this.userToHelp.value
     };
 
     this.signUpService
@@ -160,6 +237,10 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
   get firstName(): FormControl {
     return this.signUpForm?.get('firstName') as FormControl;
+  }
+
+  get userToHelp(): FormControl {
+    return this.signUpForm?.get('userToHelp') as FormControl;
   }
 
   ngOnDestroy(): void {

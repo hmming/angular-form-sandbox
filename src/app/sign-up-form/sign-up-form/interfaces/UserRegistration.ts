@@ -3,4 +3,5 @@ export interface UserRegistration {
   lastName: string;
   email: string;
   password: string;
+  userToHelp: string;
 }

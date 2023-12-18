@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideStore } from '@ngrx/store';
-import { reducers, metaReducers } from './store/reducers';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideStore(),
-    provideStoreDevtools()
+    provideStoreDevtools(),
+    provideEffects()
 ]
 };

@@ -6,14 +6,15 @@ import {
   createSelector,
   MetaReducer
 } from '@ngrx/store';
-import { counterReducer } from './counter.reducer';
+import { formDataReducer } from './formData.reducer';
+import { UserRegistration } from '../../sign-up-form/sign-up-form/interfaces/UserRegistration';
 
 export interface State {
- counter: number;
+ formData: UserRegistration
 }
 
 export const reducers: ActionReducerMap<State> = {
-  counter: counterReducer,
+  formData: formDataReducer,
 };
 
 
