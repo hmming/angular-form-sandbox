@@ -5,6 +5,8 @@ import { formDataReducer } from './store/reducers/formData.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { fetchUsers$ } from './store/effects/users.effects';
 import { userDataReducer } from './store/reducers/userData.reducer';
+import { userTodosReducer } from './store/reducers/userTodos.reducer';
+import { fetchTodos$ } from './store/effects/userTodos.effects';
 
 export const routes: Routes = [
   {
@@ -20,7 +22,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./beneficiary-details/beneficiary-details.component').then(
         (m) => m.BeneficiaryDetailsComponent
-      )
+      ),
+    providers: [
+      provideState({name: 'userTodoData', reducer: userTodosReducer}),
+      provideEffects({ fetchTodos$ })
+    ]
   },
   {
     path: 'sign-up',

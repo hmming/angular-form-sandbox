@@ -12,4 +12,8 @@ export class UserDataService {
   fetchUser(): Observable<any> {
     return this.http.get('https://jsonplaceholder.typicode.com/users');
   }
+
+  fetchTodos(): Observable<any> {
+    return this.http.get('https://jsonplaceholder.typicode.com/todos');
+  }
 }

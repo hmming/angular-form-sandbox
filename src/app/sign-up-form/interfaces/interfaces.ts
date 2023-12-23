@@ -25,3 +25,17 @@ export interface UserData {
   website: string;
   company: UserCompany;
 }
+
+export interface UserTodo {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean
+}
+
+export interface UserTodoData {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean
+}

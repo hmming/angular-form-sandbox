@@ -4,5 +4,10 @@ export enum FormDataActions {
 
 export enum UserDataAction {
   fetchUsers = '[users-data] fetch users',
-  fetchUsersSuccess = '[users-data] fetch users succes'
+  fetchUsersSuccess = '[users-data] fetch users success'
+}
+
+export enum UserTodosActions {
+  fetchTodos = '[todo-data] fetch todos',
+  fetchTodosSuccess  = '[todo-data] fetch todos success',
 }
