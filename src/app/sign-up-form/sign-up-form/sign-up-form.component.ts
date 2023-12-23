@@ -19,6 +19,7 @@ import { saveUser } from '../../store/actions/formData.actions';
 import { MatSelectModule } from '@angular/material/select';
 import { fetchUsers } from '../../store/actions/users.actions';
 import { UserData } from '../interfaces/interfaces';
+import { selectUserData, selectUserList } from '../../store/reducers/userData.reducer';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -64,7 +65,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
     this.isLoadingSignal = this.loadingStateService.isLoadingSignal;
 
-    this.usersData$ = this.store.select('userData');
+    this.usersData$ = this.store.select(selectUserList);
   }
 
   saveUser() {

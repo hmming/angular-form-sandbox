@@ -7,6 +7,7 @@ import { fetchUsers$ } from './store/effects/users.effects';
 import { userDataReducer } from './store/reducers/userData.reducer';
 import { userTodosReducer } from './store/reducers/userTodos.reducer';
 import { fetchTodos$ } from './store/effects/userTodos.effects';
+import { StateKeys } from './store/reducers/enums';
 
 export const routes: Routes = [
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
         (m) => m.BeneficiaryDetailsComponent
       ),
     providers: [
-      provideState({name: 'userTodoData', reducer: userTodosReducer}),
+      provideState({name: StateKeys.UserTodos, reducer: userTodosReducer}),
       provideEffects({ fetchTodos$ })
     ]
   },
@@ -35,8 +36,8 @@ export const routes: Routes = [
         (m) => m.SignUpFormComponent
       ),
     providers: [
-      provideState({name: 'formData', reducer: formDataReducer}),
-      provideState({name: 'userData', reducer: userDataReducer}),
+      provideState({name: StateKeys.FormData, reducer: formDataReducer}),
+      provideState({name: StateKeys.UserData, reducer: userDataReducer}),
       provideEffects({ fetchUsers$ })
     ]
   },

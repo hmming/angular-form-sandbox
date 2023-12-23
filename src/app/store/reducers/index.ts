@@ -11,11 +11,11 @@ import { UserRegistration } from '../../sign-up-form/sign-up-form/interfaces/Use
 import { UserData, UserTodoData } from '../../sign-up-form/interfaces/interfaces';
 import { userDataReducer } from './userData.reducer';
 
-export interface State {
- formData: UserRegistration;
- userData: UserData[];
- userTodoData: UserTodoData[];
-}
+// export interface State {
+//  formData: UserRegistration;
+//  userData: UserData[];
+//  userTodoData: UserTodoData[];
+// }
 
 // export const reducers: ActionReducerMap<State> = {
 //   formData: formDataReducer,
@@ -23,4 +23,4 @@ export interface State {
 // };
 
 
-export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];
+// export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];
